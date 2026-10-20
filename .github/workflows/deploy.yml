@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - uses: aws-actions/configure-aws-credentials@v4
+
+    - name: Login ECR
+      uses:
+        aws-actions/amazon-ecr-login@v2
+
+- name: Build
+
+  run: |
+    docker build -t healthcare-backend .
+
+    docker tag healthcare-backend \
+    $ECR_REGISTRY/healthcare-backend:${{ github.sha }}
+
+- name: Push
+
+  run: |
+    docker push \
+    $ECR_REGISTRY/healthcare-backend:${{ github.sha }}
+
+  - name: Deploy
+
+  run: |
+    kubectl set image deployment/backend \
+    backend=$ECR_REGISTRY/healthcare-backend:${{ github.sha }}
