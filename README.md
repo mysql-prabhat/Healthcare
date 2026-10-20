@@ -254,6 +254,25 @@ docker logs healthcare-ollama
 
 ---
 
+# Multi-Tenant Healthcare AI Platform
+
+## Architecture Overview
+
+![Architecture Overview](docs/images/architecture-overview.drawio.png)
+
+## Document Processing Workflow
+
+![Document Processing Workflow](docs/images/document-processing-flow.drawio.png)
+
+## FHIR Integration Workflow
+
+![FHIR Integration Workflow](docs/images/fhir-integration-flow.drawio.png)
+
+## Database ER Diagram
+
+![Database ER Diagram](docs/images/er-diagram.drawio.png)
+
+
 # Development URLs
 
 | Service | URL |
