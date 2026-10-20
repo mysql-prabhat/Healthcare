@@ -75,7 +75,9 @@ def create_document(
 
     document = Document(
         title=request.title,
-        payload=request.payload,
+        file_name=request.file_name,
+        file_type=request.file_type,
+        file_path=request.file_path,
         tenant_id=user["tenant_id"],
         status="PENDING",
         created_at=datetime.utcnow()
@@ -196,6 +198,12 @@ def download_document(
         .filter(Document.id == document_id)
         .first()
     )
+
+    if document is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Document not found"
+        )
 
     return FileResponse(
         document.file_path,

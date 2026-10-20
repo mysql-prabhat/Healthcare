@@ -272,6 +272,11 @@ docker logs healthcare-ollama
 
 ![Database ER Diagram](docs/images/er-diagram.drawio.png)
 
+# Unit Test Cases & Coverages
+```bash
+./venv/Scripts/python.exe -m coverage run --branch --source=app.api.v1.documents -m pytest app/tests/test_documents.py -q
+./venv/Scripts/python.exe -m coverage report -m app/api/v1/documents.py
+```
 
 # Development URLs
 
