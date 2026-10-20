@@ -1,0 +1,237 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="FHIR Integration Flow">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10"
+      guides="1" tooltips="1" connect="1"
+      arrows="1" fold="1" page="1"
+      pageScale="1" pageWidth="2000"
+      pageHeight="1400">
+
+      <root>
+
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- EHR -->
+
+        <mxCell id="2"
+          value="Epic / Cerner / EHR"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeWidth=2;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="700" y="40" width="260" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- FHIR Resources -->
+
+        <mxCell id="3"
+          value="FHIR Patient"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="100" y="200" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="4"
+          value="FHIR Observation"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="320" y="200" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="5"
+          value="FHIR Condition"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="540" y="200" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="6"
+          value="FHIR MedicationRequest"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="760" y="200" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="7"
+          value="FHIR Encounter"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1040" y="200" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="8"
+          value="FHIR DocumentReference"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1280" y="200" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Sync Layer -->
+
+        <mxCell id="9"
+          value="FHIR Sync Service&#10;&#10;Patient API&#10;Observation API&#10;Condition API&#10;Medication API"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeWidth=2;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="600" y="340" width="360" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Database -->
+
+        <mxCell id="10"
+          value="PostgreSQL&#10;&#10;patients&#10;conditions&#10;observations&#10;medications&#10;encounters&#10;documents"
+          style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#dae8fc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="640" y="620" width="280" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Dashboard -->
+
+        <mxCell id="11"
+          value="Patient Dashboard&#10;&#10;Patient Details&#10;Conditions&#10;Observations&#10;Medications&#10;Documents"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1100" y="580" width="320" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Ollama -->
+
+        <mxCell id="12"
+          value="Ollama&#10;&#10;Clinical Summary&#10;Recommendations&#10;Risk Assessment"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1100" y="860" width="320" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Review Queue -->
+
+        <mxCell id="13"
+          value="Review Queue&#10;&#10;Human Approval Required"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1100" y="1080" width="320" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- Approve -->
+
+        <mxCell id="14"
+          value="Approve"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="980" y="1260" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Reject -->
+
+        <mxCell id="15"
+          value="Reject"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1260" y="1260" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Audit -->
+
+        <mxCell id="16"
+          value="Audit Logs&#10;&#10;FHIR Read&#10;Summary Generated&#10;Approved / Rejected"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1580" y="1080" width="280" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Writeback -->
+
+        <mxCell id="17"
+          value="FHIR Writeback&#10;&#10;Task&#10;CarePlan&#10;DocumentReference"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1580" y="860" width="280" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- Connections -->
+
+        <mxCell id="e1" edge="1" parent="1" source="2" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e2" edge="1" parent="1" source="3" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e3" edge="1" parent="1" source="4" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e4" edge="1" parent="1" source="5" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e5" edge="1" parent="1" source="6" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e6" edge="1" parent="1" source="7" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e7" edge="1" parent="1" source="8" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e8" edge="1" parent="1" source="9" target="10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e9" edge="1" parent="1" source="10" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e10" edge="1" parent="1" source="11" target="12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e11" edge="1" parent="1" source="12" target="13">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e12" edge="1" parent="1" source="13" target="14">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e13" edge="1" parent="1" source="13" target="15">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e14" edge="1" parent="1" source="14" target="17">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e15" edge="1" parent="1" source="14" target="16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e16" edge="1" parent="1" source="15" target="16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e17" edge="1" parent="1" source="17" target="2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

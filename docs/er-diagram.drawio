@@ -1,0 +1,183 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="ER Diagram">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10"
+      guides="1" tooltips="1" connect="1"
+      arrows="1" fold="1" page="1"
+      pageScale="1" pageWidth="2200"
+      pageHeight="1600">
+
+      <root>
+
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Tenant -->
+
+        <mxCell id="2"
+          value="TENANT&#10;--------------------&#10;id (PK)&#10;tenant_name&#10;created_at"
+          style="swimlane;startSize=30;fillColor=#dae8fc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="900" y="50" width="250" height="150" as="geometry"/>
+        </mxCell>
+
+        <!-- Users -->
+
+        <mxCell id="3"
+          value="USERS&#10;--------------------&#10;id (PK)&#10;username&#10;password_hash&#10;role&#10;tenant_id (FK)"
+          style="swimlane;startSize=30;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="500" y="300" width="280" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Patients -->
+
+        <mxCell id="4"
+          value="PATIENTS&#10;--------------------&#10;id (PK)&#10;patient_id&#10;first_name&#10;last_name&#10;dob&#10;gender&#10;tenant_id (FK)"
+          style="swimlane;startSize=30;fillColor=#f8cecc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="900" y="300" width="320" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- Conditions -->
+
+        <mxCell id="5"
+          value="CONDITIONS&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;diagnosis"
+          style="swimlane;startSize=30;fillColor=#fff2cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="80" y="650" width="260" height="150" as="geometry"/>
+        </mxCell>
+
+        <!-- Observations -->
+
+        <mxCell id="6"
+          value="OBSERVATIONS&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;observation_type&#10;value&#10;unit"
+          style="swimlane;startSize=30;fillColor=#fff2cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="400" y="650" width="280" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Medications -->
+
+        <mxCell id="7"
+          value="MEDICATIONS&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;medication_name&#10;dosage"
+          style="swimlane;startSize=30;fillColor=#fff2cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="760" y="650" width="280" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Encounters -->
+
+        <mxCell id="8"
+          value="ENCOUNTERS&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;encounter_type&#10;visit_date"
+          style="swimlane;startSize=30;fillColor=#fff2cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1120" y="650" width="280" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Documents -->
+
+        <mxCell id="9"
+          value="DOCUMENTS&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;file_name&#10;file_path&#10;summary&#10;status&#10;retry_count&#10;tenant_id (FK)"
+          style="swimlane;startSize=30;fillColor=#dae8fc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1550" y="300" width="340" height="250" as="geometry"/>
+        </mxCell>
+
+        <!-- Reviews -->
+
+        <mxCell id="10"
+          value="REVIEWS&#10;--------------------&#10;id (PK)&#10;document_id (FK)&#10;approved&#10;reviewer&#10;comments"
+          style="swimlane;startSize=30;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1550" y="700" width="300" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Work Queue -->
+
+        <mxCell id="11"
+          value="WORK_QUEUE&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;document_id (FK)&#10;action_type&#10;priority&#10;status"
+          style="swimlane;startSize=30;fillColor=#f8cecc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1950" y="700" width="320" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Audit Logs -->
+
+        <mxCell id="12"
+          value="AUDIT_LOGS&#10;--------------------&#10;id (PK)&#10;patient_id (FK)&#10;document_id (FK)&#10;action&#10;performed_by&#10;created_at&#10;tenant_id"
+          style="swimlane;startSize=30;fillColor=#ffe6cc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1550" y="980" width="330" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- DLQ -->
+
+        <mxCell id="13"
+          value="DEAD_LETTER_QUEUE&#10;--------------------&#10;id (PK)&#10;document_id (FK)&#10;error_message&#10;retry_attempts&#10;created_at"
+          style="swimlane;startSize=30;fillColor=#ffcccc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1950" y="980" width="330" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- Relationship Lines -->
+
+        <mxCell id="e1" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e2" edge="1" parent="1" source="2" target="4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e3" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e4" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e5" edge="1" parent="1" source="4" target="7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e6" edge="1" parent="1" source="4" target="8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e7" edge="1" parent="1" source="4" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e8" edge="1" parent="1" source="9" target="10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e9" edge="1" parent="1" source="9" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e10" edge="1" parent="1" source="9" target="12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e11" edge="1" parent="1" source="9" target="13">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

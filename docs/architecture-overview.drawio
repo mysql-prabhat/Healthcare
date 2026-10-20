@@ -1,0 +1,124 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Architecture Overview">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1"
+      tooltips="1" connect="1" arrows="1" fold="1"
+      page="1" pageScale="1" pageWidth="1600" pageHeight="1000">
+
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- React UI -->
+
+        <mxCell id="2"
+          value="React UI&#10;Login&#10;Patients&#10;Documents&#10;Review Queue&#10;Audit Logs"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeWidth=2;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="40" y="150" width="180" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- FastAPI -->
+
+        <mxCell id="3"
+          value="FastAPI Backend&#10;&#10;Auth Service&#10;Patient Service&#10;Document Service&#10;Review Service&#10;Audit Service&#10;FHIR Service"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeWidth=2;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="320" y="120" width="240" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- PostgreSQL -->
+
+        <mxCell id="4"
+          value="PostgreSQL&#10;&#10;Patients&#10;Documents&#10;Reviews&#10;Audit Logs"
+          style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="700" y="50" width="180" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- Redis -->
+
+        <mxCell id="5"
+          value="Redis Queue&#10;&#10;AI Jobs&#10;Retry Queue"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="680" y="250" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Worker -->
+
+        <mxCell id="6"
+          value="Worker Service&#10;&#10;Document Processing&#10;Retry Logic&#10;Dead Letter Queue"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="980" y="230" width="220" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- Ollama -->
+
+        <mxCell id="7"
+          value="Ollama&#10;&#10;llama3.2&#10;Clinical Summary&#10;Recommendations"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1300" y="230" width="220" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- FHIR -->
+
+        <mxCell id="8"
+          value="FHIR Integration Layer&#10;&#10;Patient&#10;Observation&#10;Condition&#10;MedicationRequest&#10;DocumentReference"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="980" y="480" width="260" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- EHR -->
+
+        <mxCell id="9"
+          value="Epic / Cerner&#10;EHR Systems"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1360" y="520" width="180" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Connections -->
+
+        <mxCell id="10" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="11" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="12" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="13" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="14" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="15" edge="1" parent="1" source="3" target="8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="16" edge="1" parent="1" source="8" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

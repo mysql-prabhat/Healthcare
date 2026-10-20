@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  healthcare-app:
+    build: .
+    container_name: healthcare-backend
+    restart: always
+    env_file:
+      - .env
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      REDIS_HOST: redis
+      DATABASE_HOST: postgres
+    volumes:
+      - ./uploads:/app/uploads
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+      ollama-model-init:
+        condition: service_completed_successfully
+  worker:
+    build: .
+    container_name: healthcare-worker
+    command: python -m app.workers.worker
+    restart: always
+    env_file:
+      - .env
+    environment:
+      REDIS_HOST: redis
+      OLLAMA_HOST: http://ollama:11434
+      DATABASE_HOST: postgres
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+      ollama-model-init:
+        condition: service_completed_successfully
+  postgres:
+    image: postgres:16
+    container_name: healthcare-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: healthcare
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U admin"
+        ]
+      interval: 10s
+      retries: 5
+
+  redis:
+    image: redis:7
+    container_name: healthcare-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: healthcare-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  ollama-model-init:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    command: ["pull", "llama3.2"]
+    restart: "no"
+
+volumes:
+  ollama_data:
