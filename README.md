@@ -155,7 +155,24 @@ ALTER COLUMN title TYPE CHAR(100);
 ```
 
 ---
+# Docker Redis
 
+## Connect to Redis
+
+```bash
+  docker exec -it healthcare-redis redis-cli
+```
+## List data in Redis
+
+```bash
+  SCAN 0 MATCH rq:* COUNT 100
+```
+## Delete all record from Redis
+
+```bash
+  FLUSHDB
+```
+---
 # Docker Services
 
 The application uses the following containers:
