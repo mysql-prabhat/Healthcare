@@ -15,17 +15,13 @@ from fastapi import (
 from app.core.auth import get_current_user
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy.orm import Session
-import os
 import shutil
 from uuid import uuid4
 from fastapi.responses import FileResponse
 from app.core.redis import document_queue
+from app.core.storage import UPLOAD_DIR, resolve_document_path
 
-UPLOAD_DIR = "uploads"
-os.makedirs(
-    UPLOAD_DIR,
-    exist_ok=True
-)
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 router = APIRouter( 
     prefix="/v1/documents",
     tags=["Documents"]
@@ -124,10 +120,7 @@ def upload_document(
     safe_filename = (file.filename or "upload").replace(" ", "_")
     unique_name = f"{uuid4()}_{safe_filename}"
 
-    file_path = os.path.join(
-        UPLOAD_DIR,
-        unique_name
-    )
+    file_path = UPLOAD_DIR / unique_name
     patient = (
         db.query(Patient)
         .filter(
@@ -151,7 +144,7 @@ def upload_document(
     document = Document(
         title=title,
         file_name=file.filename or safe_filename,
-        file_path=file_path,
+        file_path=str(file_path),
         file_type=file.content_type,
         patient_id=patient.id,
         tenant_id=user["tenant_id"],
@@ -206,6 +199,6 @@ def download_document(
         )
 
     return FileResponse(
-        document.file_path,
+        resolve_document_path(document.file_path),
         filename=document.file_name
     )

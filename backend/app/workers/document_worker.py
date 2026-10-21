@@ -1,16 +1,10 @@
 from app.core.db import SessionLocal
-from app.core.models import (
-    Document,
-    DeadLetterQueue
-)
+from app.core.models import ( Document, DeadLetterQueue)
 
-from app.services.text_extractor import (
-    extract_text
-)
-
-from app.services.ai_service import (
-    generate_summary
-)
+from app.services.text_extractor import (extract_text)
+from app.services.ai_service import ( generate_summary )
+from app.core.redis import ( document_queue )
+from app.core.storage import resolve_document_path
 
 MAX_RETRY = 3
 
@@ -31,7 +25,9 @@ def process_document(
             )
 
         try:
-            text = extract_text(document.file_path)
+            text = extract_text(
+                str(resolve_document_path(document.file_path))
+            )
             ai_result = generate_summary(text)
 
             document.extracted_text = text
@@ -42,6 +38,7 @@ def process_document(
             document.confidence_score = ai_result["confidence"]
             document.status = "PENDING_REVIEW"
             document.processing_error = None
+            db.add(document)
             db.commit()
 
         except Exception as ex:
@@ -57,7 +54,6 @@ def handle_retry(
 ):
 
     document.retry_count = (document.retry_count or 0) + 1
-
     document.processing_error = (
         error_message
     )
@@ -70,12 +66,13 @@ def handle_retry(
         document.status = (
             "RETRYING"
         )
-
+        print(
+            f"Retrying document {document.id} "
+            f"(attempt {document.retry_count})"
+        )
+        db.add(document)
         db.commit()
 
-        from app.core.redis import (
-            document_queue
-        )
 
         document_queue.enqueue(
             process_document,
@@ -105,9 +102,8 @@ def move_to_dlq(
             payload=document.file_name
         )
     )
-
-    db.add(dead_record)
-
     document.status = "FAILED"
 
+    db.add(dead_record)
+    db.add(document)
     db.commit()
